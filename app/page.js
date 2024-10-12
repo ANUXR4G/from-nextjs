@@ -13,7 +13,7 @@ function writeUserData(userId, data) {
   set(ref(db, 'users/' + userId), data);
 }
 
-const App = () => {
+const Page = () => {
   const [formData, setFormData] = useState({
     'lead_token': '61725b25f21c4d4d8773c88313c3f390',
     'caller_id': '',
@@ -174,4 +174,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Page;
