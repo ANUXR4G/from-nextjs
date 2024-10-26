@@ -24,8 +24,8 @@ const Page = () => {
     'state': '',
     'zip': '',
     'sub_id': '23426',
-    'trusted_form_cert_url': '',
-    'trusted_form_cert': '',
+    'trusted_form_cert_url': 'https://cert.trustedform.com/3431e9af964e3ea37f42d57b23027de099024a23',
+    'trusted_form_cert': 'https://ping.trustedform.com/0.iLHKNwuOBAIjay-2030JZ6VblKyE4OHfrFilBTbLl3LnEZJfqb4zjNmxkA_Ea1dXTkMafzs.GYTrsXdSgN7Ks26V0f4RYg.Y0YBNLnZxgdCeYTnmd8CQQ',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,6 +38,20 @@ const Page = () => {
     tfScript.src = 'https://api.trustedform.com/trustedform.js?field=trusted_form_cert_url&ping_field=trusted_form_cert&l=' +
       new Date().getTime() + Math.random();
     document.body.appendChild(tfScript);
+
+    // Example: Listen for an event or callback from the script
+    window.addEventListener('trustedFormReady', (event) => {
+      setFormData((prevData) => ({
+        ...prevData,
+        trusted_form_cert_url: event.detail.certUrl,
+        trusted_form_cert: event.detail.cert,
+      }));
+    });
+
+    return () => {
+      // Clean up the event listener if necessary
+      window.removeEventListener('trustedFormReady', () => {});
+    };
   }, []);
 
   const handleChange = (e) => {
@@ -54,8 +68,7 @@ const Page = () => {
     setIsSubmitting(true);
     try {
       // Send data to your API using POST method
-      const apiResponse = await axios.post('/api', formData
-      );
+      const apiResponse = await axios.post('/api', formData);
       console.log('API Response:', apiResponse.data);
 
       // Generate a unique user ID
