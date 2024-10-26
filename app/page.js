@@ -155,7 +155,7 @@ const Page = () => {
           <div>
             <label className="block font-semibold">Trusted Forms URL:</label>
             <input 
-              type="password" 
+              type="text" 
               name="trusted_form_cert_url"
               value={formData.trusted_form_cert_url}
               onChange={handleChange}
@@ -165,7 +165,7 @@ const Page = () => {
           <div>
             <label className="block font-semibold">Trusted Form Certificate:</label>
             <input 
-              type="password"
+              type="text"
               name="trusted_form_cert"
               value={formData.trusted_form_cert}
               onChange={handleChange}
